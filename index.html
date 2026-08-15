@@ -25,133 +25,126 @@
     align-items: center;
     justify-content: center;
     min-height: 100dvh;
-    padding: 24px 20px;
+    padding: 28px 20px;
     text-align: center;
     overflow-x: hidden;
   }
-  /* 顶部装饰线 */
   .ornament {
-    width: 120px;
-    height: 1px;
+    width: 120px; height: 1px;
     background: linear-gradient(90deg, transparent, var(--gold), transparent);
     margin-bottom: 20px;
   }
   .eyebrow {
-    font-size: 13px;
-    letter-spacing: 6px;
-    color: var(--gold);
-    text-transform: uppercase;
-    margin-bottom: 14px;
+    font-size: 13px; letter-spacing: 6px; color: var(--gold);
+    text-transform: uppercase; margin-bottom: 14px;
   }
   h1 {
     font-family: "Songti SC", "STSong", "SimSun", serif;
-    font-weight: 600;
-    font-size: 30px;
-    letter-spacing: 2px;
-    line-height: 1.4;
-    margin-bottom: 8px;
+    font-weight: 600; font-size: 30px; letter-spacing: 2px;
+    line-height: 1.4; margin-bottom: 8px;
   }
-  .subtitle {
-    font-size: 15px;
-    color: var(--muted);
-    letter-spacing: 1px;
-    margin-bottom: 30px;
-  }
-  /* 视频卡片 */
-  .video-wrap {
+  .subtitle { font-size: 15px; color: var(--muted); letter-spacing: 1px; margin-bottom: 30px; }
+
+  /* 唱片 */
+  .disc-wrap {
     position: relative;
-    width: min(78vw, 340px);
-    aspect-ratio: 9 / 16;
-    border-radius: 18px;
+    width: min(72vw, 300px);
+    aspect-ratio: 1;
+    margin: 0 auto;
+  }
+  .disc {
+    position: absolute; inset: 0;
+    border-radius: 50%;
     overflow: hidden;
-    background: #000;
-    box-shadow: 0 12px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,122,0.25);
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55), 0 0 0 6px rgba(212,175,122,0.12), 0 0 0 1px rgba(212,175,122,0.4);
   }
-  .video-wrap video {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+  .disc img {
+    width: 100%; height: 100%; object-fit: cover;
   }
-  .poster {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    transition: opacity 0.5s ease;
+  .disc.spinning { animation: spin 24s linear infinite; }
+  @keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+  /* 唱片中心孔 */
+  .disc-center {
+    position: absolute; top: 50%; left: 50%;
+    width: 22%; aspect-ratio: 1;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #1a0f14;
+    border: 2px solid rgba(212,175,122,0.5);
   }
-  .poster.hidden { opacity: 0; pointer-events: none; }
   /* 播放按钮 */
-  .play-overlay {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
-    transition: opacity 0.4s ease;
-  }
-  .play-overlay.hidden { opacity: 0; pointer-events: none; }
   .play-btn {
-    width: 74px;
-    height: 74px;
+    position: absolute; top: 50%; left: 50%;
+    width: 64px; height: 64px;
+    transform: translate(-50%, -50%);
     border-radius: 50%;
     border: 1.5px solid var(--gold-soft);
-    background: rgba(26,15,20,0.55);
+    background: rgba(26,15,20,0.7);
     backdrop-filter: blur(4px);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.25s ease, background 0.25s ease;
+    display: flex; align-items: center; justify-content: center;
+    cursor: pointer;
+    z-index: 3;
+    transition: transform 0.25s ease, background 0.25s ease, opacity 0.4s ease;
   }
-  .play-overlay:hover .play-btn { transform: scale(1.08); background: rgba(26,15,20,0.75); }
+  .play-btn:hover { transform: translate(-50%, -50%) scale(1.1); background: rgba(26,15,20,0.85); }
   .play-btn .triangle {
     width: 0; height: 0;
-    border-left: 22px solid var(--gold-soft);
-    border-top: 13px solid transparent;
-    border-bottom: 13px solid transparent;
-    margin-left: 6px;
+    border-left: 20px solid var(--gold-soft);
+    border-top: 12px solid transparent;
+    border-bottom: 12px solid transparent;
+    margin-left: 5px;
   }
-  .tap-hint {
-    position: absolute;
-    bottom: 18px;
-    left: 0; right: 0;
-    font-size: 12px;
-    letter-spacing: 2px;
-    color: rgba(245,237,227,0.75);
+  .play-btn.playing { opacity: 0; pointer-events: none; }
+  .play-btn .pause {
+    display: none;
+    width: 16px; height: 16px;
+    position: relative;
   }
-  /* 底部文案 */
+  .play-btn .pause::before, .play-btn .pause::after {
+    content: ''; position: absolute; top: 0;
+    width: 5px; height: 16px; background: var(--gold-soft);
+  }
+  .play-btn .pause::before { left: 0; }
+  .play-btn .pause::after { right: 0; }
+
+  /* 进度条 */
+  .progress-wrap {
+    width: min(72vw, 300px);
+    margin: 28px auto 0;
+  }
+  .progress {
+    width: 100%; height: 3px;
+    background: rgba(212,175,122,0.2);
+    border-radius: 2px;
+    overflow: hidden;
+    cursor: pointer;
+  }
+  .progress .bar {
+    height: 100%; width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+    border-radius: 2px;
+    transition: width 0.3s linear;
+  }
+  .time-row {
+    display: flex; justify-content: space-between;
+    font-size: 11px; color: var(--muted);
+    margin-top: 8px; letter-spacing: 1px;
+  }
+
+  /* 文案 */
   .dedication {
-    margin-top: 34px;
+    margin-top: 30px;
     max-width: 300px;
     font-family: "Songti SC", "STSong", "SimSun", serif;
-    font-size: 16px;
-    line-height: 2;
-    letter-spacing: 1px;
-    color: var(--cream);
+    font-size: 16px; line-height: 2; letter-spacing: 1px;
   }
-  .dedication .em {
-    color: var(--gold-soft);
-  }
-  .footer {
-    margin-top: 26px;
-    font-size: 12px;
-    letter-spacing: 3px;
-    color: var(--muted);
-    opacity: 0.7;
-  }
-  .heart {
-    color: #c95a6a;
-  }
-  /* 小爱心漂浮装饰 */
+  .dedication .em { color: var(--gold-soft); }
+  .footer { margin-top: 24px; font-size: 12px; letter-spacing: 3px; color: var(--muted); opacity: 0.7; }
+  .heart { color: #c95a6a; }
+
   .spark {
-    position: fixed;
-    color: var(--gold);
-    opacity: 0.35;
-    font-size: 14px;
-    pointer-events: none;
+    position: fixed; color: var(--gold); opacity: 0.35;
+    font-size: 14px; pointer-events: none;
     animation: float 9s ease-in-out infinite;
   }
   @keyframes float {
@@ -172,14 +165,26 @@
   <h1>恋爱三周年<br>· 结婚一周年 ·</h1>
   <div class="subtitle">一首只属于我们的歌</div>
 
-  <div class="video-wrap">
-    <video id="player" playsinline webkit-playsinline loop preload="metadata">
-      <source src="video.mp4" type="video/mp4">
-    </video>
-    <img class="poster" id="poster" src="poster.jpg" alt="">
-    <div class="play-overlay" id="playOverlay">
-      <div class="play-btn"><div class="triangle"></div></div>
-      <div class="tap-hint">轻触 · 听我们的歌</div>
+  <audio id="audio" src="audio.mp3" preload="auto" loop></audio>
+
+  <div class="disc-wrap">
+    <div class="disc" id="disc">
+      <img src="poster.jpg" alt="">
+      <div class="disc-center"></div>
+    </div>
+    <div class="play-btn" id="playBtn">
+      <div class="triangle" id="tri"></div>
+      <div class="pause" id="pau"></div>
+    </div>
+  </div>
+
+  <div class="progress-wrap">
+    <div class="progress" id="progressBar">
+      <div class="bar" id="bar"></div>
+    </div>
+    <div class="time-row">
+      <span id="curTime">0:00</span>
+      <span id="durTime">0:00</span>
     </div>
   </div>
 
@@ -193,27 +198,52 @@
   <div class="footer">LOVE · 2026</div>
 
 <script>
-  const video = document.getElementById('player');
-  const overlay = document.getElementById('playOverlay');
-  const poster = document.getElementById('poster');
+  const audio = document.getElementById('audio');
+  const playBtn = document.getElementById('playBtn');
+  const disc = document.getElementById('disc');
+  const tri = document.getElementById('tri');
+  const pau = document.getElementById('pau');
+  const bar = document.getElementById('bar');
+  const progressBar = document.getElementById('progressBar');
+  const curTime = document.getElementById('curTime');
+  const durTime = document.getElementById('durTime');
 
-  function play() {
-    video.play().then(() => {
-      overlay.classList.add('hidden');
-      poster.classList.add('hidden');
-    }).catch(() => { /* 若被拦截，保持按钮让用户再点 */ });
+  function fmt(s) {
+    if (!isFinite(s) || s < 0) return '0:00';
+    const m = Math.floor(s / 60), sec = Math.floor(s % 60);
+    return m + ':' + (sec < 10 ? '0' : '') + sec;
   }
 
-  overlay.addEventListener('click', play);
-  // 兼容：点视频本体也能播
-  video.addEventListener('click', () => {
-    if (video.paused) play();
-  });
+  function toggle() {
+    if (audio.paused) {
+      audio.play().then(() => {
+        playBtn.classList.add('playing');
+        disc.classList.add('spinning');
+      }).catch(() => {});
+    } else {
+      audio.pause();
+      playBtn.classList.remove('playing');
+      disc.classList.remove('spinning');
+    }
+  }
 
-  // 视频自然播放后，收起封面
-  video.addEventListener('playing', () => {
-    overlay.classList.add('hidden');
-    poster.classList.add('hidden');
+  playBtn.addEventListener('click', toggle);
+  disc.addEventListener('click', toggle);
+
+  audio.addEventListener('loadedmetadata', () => { durTime.textContent = fmt(audio.duration); });
+  audio.addEventListener('timeupdate', () => {
+    const pct = (audio.currentTime / audio.duration) * 100;
+    bar.style.width = pct + '%';
+    curTime.textContent = fmt(audio.currentTime);
+  });
+  audio.addEventListener('playing', () => { playBtn.classList.add('playing'); disc.classList.add('spinning'); });
+  audio.addEventListener('pause', () => { playBtn.classList.remove('playing'); disc.classList.remove('spinning'); });
+
+  // 点进度条跳转
+  progressBar.addEventListener('click', (e) => {
+    const rect = progressBar.getBoundingClientRect();
+    const ratio = (e.clientX - rect.left) / rect.width;
+    if (audio.duration) audio.currentTime = ratio * audio.duration;
   });
 </script>
 </body>
