@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#1a0f14">
+<title>恋爱三周年 · 结婚一周年</title>
+<style>
+  :root {
+    --bg-1: #1a0f14;
+    --bg-2: #2d1a20;
+    --gold: #d4af7a;
+    --gold-soft: #e6cfa5;
+    --cream: #f5ede3;
+    --muted: #b8a898;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { height: 100%; }
+  body {
+    background: linear-gradient(160deg, var(--bg-1) 0%, var(--bg-2) 100%);
+    color: var(--cream);
+    font-family: -apple-system, "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100dvh;
+    padding: 24px 20px;
+    text-align: center;
+    overflow-x: hidden;
+  }
+  /* 顶部装饰线 */
+  .ornament {
+    width: 120px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold), transparent);
+    margin-bottom: 20px;
+  }
+  .eyebrow {
+    font-size: 13px;
+    letter-spacing: 6px;
+    color: var(--gold);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  h1 {
+    font-family: "Songti SC", "STSong", "SimSun", serif;
+    font-weight: 600;
+    font-size: 30px;
+    letter-spacing: 2px;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+  .subtitle {
+    font-size: 15px;
+    color: var(--muted);
+    letter-spacing: 1px;
+    margin-bottom: 30px;
+  }
+  /* 视频卡片 */
+  .video-wrap {
+    position: relative;
+    width: min(78vw, 340px);
+    aspect-ratio: 9 / 16;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #000;
+    box-shadow: 0 12px 40px rgba(0,0,0,0.55), 0 0 0 1px rgba(212,175,122,0.25);
+  }
+  .video-wrap video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+  }
+  .poster {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.5s ease;
+  }
+  .poster.hidden { opacity: 0; pointer-events: none; }
+  /* 播放按钮 */
+  .play-overlay {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    background: radial-gradient(circle at center, rgba(0,0,0,0.1) 0%, rgba(0,0,0,0.45) 100%);
+    transition: opacity 0.4s ease;
+  }
+  .play-overlay.hidden { opacity: 0; pointer-events: none; }
+  .play-btn {
+    width: 74px;
+    height: 74px;
+    border-radius: 50%;
+    border: 1.5px solid var(--gold-soft);
+    background: rgba(26,15,20,0.55);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.25s ease, background 0.25s ease;
+  }
+  .play-overlay:hover .play-btn { transform: scale(1.08); background: rgba(26,15,20,0.75); }
+  .play-btn .triangle {
+    width: 0; height: 0;
+    border-left: 22px solid var(--gold-soft);
+    border-top: 13px solid transparent;
+    border-bottom: 13px solid transparent;
+    margin-left: 6px;
+  }
+  .tap-hint {
+    position: absolute;
+    bottom: 18px;
+    left: 0; right: 0;
+    font-size: 12px;
+    letter-spacing: 2px;
+    color: rgba(245,237,227,0.75);
+  }
+  /* 底部文案 */
+  .dedication {
+    margin-top: 34px;
+    max-width: 300px;
+    font-family: "Songti SC", "STSong", "SimSun", serif;
+    font-size: 16px;
+    line-height: 2;
+    letter-spacing: 1px;
+    color: var(--cream);
+  }
+  .dedication .em {
+    color: var(--gold-soft);
+  }
+  .footer {
+    margin-top: 26px;
+    font-size: 12px;
+    letter-spacing: 3px;
+    color: var(--muted);
+    opacity: 0.7;
+  }
+  .heart {
+    color: #c95a6a;
+  }
+  /* 小爱心漂浮装饰 */
+  .spark {
+    position: fixed;
+    color: var(--gold);
+    opacity: 0.35;
+    font-size: 14px;
+    pointer-events: none;
+    animation: float 9s ease-in-out infinite;
+  }
+  @keyframes float {
+    0%, 100% { transform: translateY(0) rotate(0deg); }
+    50% { transform: translateY(-18px) rotate(12deg); }
+  }
+</style>
+</head>
+<body>
+
+  <div class="spark" style="top:12%; left:12%; animation-delay:0s;">✦</div>
+  <div class="spark" style="top:20%; right:14%; animation-delay:2.2s;">✦</div>
+  <div class="spark" style="bottom:22%; left:16%; animation-delay:4.5s;">✦</div>
+  <div class="spark" style="bottom:14%; right:12%; animation-delay:6.8s;">✦</div>
+
+  <div class="ornament"></div>
+  <div class="eyebrow">For Us</div>
+  <h1>恋爱三周年<br>· 结婚一周年 ·</h1>
+  <div class="subtitle">一首只属于我们的歌</div>
+
+  <div class="video-wrap">
+    <video id="player" playsinline webkit-playsinline loop preload="metadata">
+      <source src="video.mp4" type="video/mp4">
+    </video>
+    <img class="poster" id="poster" src="poster.jpg" alt="">
+    <div class="play-overlay" id="playOverlay">
+      <div class="play-btn"><div class="triangle"></div></div>
+      <div class="tap-hint">轻触 · 听我们的歌</div>
+    </div>
+  </div>
+
+  <p class="dedication">
+    从怦然心动，到执手并肩。<br>
+    三年恋爱，一年婚姻，<br>
+    这一路，都写进了歌里。<br>
+    <span class="em">送给最好的我们 <span class="heart">♥</span></span>
+  </p>
+
+  <div class="footer">LOVE · 2026</div>
+
+<script>
+  const video = document.getElementById('player');
+  const overlay = document.getElementById('playOverlay');
+  const poster = document.getElementById('poster');
+
+  function play() {
+    video.play().then(() => {
+      overlay.classList.add('hidden');
+      poster.classList.add('hidden');
+    }).catch(() => { /* 若被拦截，保持按钮让用户再点 */ });
+  }
+
+  overlay.addEventListener('click', play);
+  // 兼容：点视频本体也能播
+  video.addEventListener('click', () => {
+    if (video.paused) play();
+  });
+
+  // 视频自然播放后，收起封面
+  video.addEventListener('playing', () => {
+    overlay.classList.add('hidden');
+    poster.classList.add('hidden');
+  });
+</script>
+</body>
+</html>
